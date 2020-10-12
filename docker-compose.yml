@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+    restreamer:
+        image: alfg/nginx-rtmp:latest
+        ports:
+            - "1935:1935"
+        volumes:
+            - ./nginx.conf:/etc/nginx/nginx.conf.template
+        depends_on:
+            - stunnel
+
+    stunnel:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        volumes:
+            - ./stunnel.conf:/etc/stunnel/stunnel.conf
